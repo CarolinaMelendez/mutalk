@@ -1,22 +1,24 @@
 Class {
-	#name : #MutationsGenerationStrategy,
-	#superclass : #Object,
-	#category : 'MuTalk-Model-Mutations generation strategies'
+	#name : 'MutationsGenerationStrategy',
+	#superclass : 'Object',
+	#category : 'MuTalk-Model-Mutations generation strategies',
+	#package : 'MuTalk-Model',
+	#tag : 'Mutations generation strategies'
 }
 
-{ #category : #generating }
+{ #category : 'generating' }
 MutationsGenerationStrategy >> methodsToMutateFrom:aMutationTestingAnalysis [
 	self subclassResponsibility.
 ]
 
-{ #category : #generating }
+{ #category : 'generating' }
 MutationsGenerationStrategy >> mutationsFor: aMutationTestingAnalysis [ 
 	^ self 
 		mutationsFor: aMutationTestingAnalysis
 		loggingIn: self nullLogger
 ]
 
-{ #category : #generating }
+{ #category : 'generating' }
 MutationsGenerationStrategy >> mutationsFor: aMutationTestingAnalysis loggingIn: aLogger [ 
 	| mutations |
 	mutations := OrderedCollection new.
@@ -31,7 +33,7 @@ MutationsGenerationStrategy >> mutationsFor: aMutationTestingAnalysis loggingIn:
 	^ mutations
 ]
 
-{ #category : #generating }
+{ #category : 'generating' }
 MutationsGenerationStrategy >> mutationsFor: aMethod usingAll: aCollectionOfMutantOperators logginIn: aLogger [ 
 	| parseTree |
 	parseTree := aMethod parseTree.
@@ -44,7 +46,7 @@ MutationsGenerationStrategy >> mutationsFor: aMethod usingAll: aCollectionOfMuta
 			mutations ]
 ]
 
-{ #category : #logging }
+{ #category : 'logging' }
 MutationsGenerationStrategy >> nullLogger [
 
 	^ NullMutationTestingAnalysisLogger new.

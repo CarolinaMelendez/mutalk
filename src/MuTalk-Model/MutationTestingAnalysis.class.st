@@ -1,6 +1,6 @@
 Class {
-	#name : #MutationTestingAnalysis,
-	#superclass : #Object,
+	#name : 'MutationTestingAnalysis',
+	#superclass : 'Object',
 	#instVars : [
 		'modelClasses',
 		'operators',
@@ -11,27 +11,29 @@ Class {
 		'mutations',
 		'testCases',
 		'coverageAnalysisResult',
-		'logger'
+		'logger',
+		'beStrictMode'
 	],
-	#category : #'MuTalk-Model'
+	#category : 'MuTalk-Model',
+	#package : 'MuTalk-Model'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MutationTestingAnalysis class >> defaultLogger [
 	^NullMutationTestingAnalysisLogger new.
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MutationTestingAnalysis class >> defaultMutantsEvaluationStrategy [
 	^ AllTestsMethodsRunningMutantEvaluationStrategy new
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MutationTestingAnalysis class >> defaultMutationsGenerationStrategy [
 	^ AllMutationsGenerationStrategy new.
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MutationTestingAnalysis class >> for: testCases mutating: classes using: operatorCollection [ 	
 	^ self 
 		for: testCases
@@ -41,7 +43,7 @@ MutationTestingAnalysis class >> for: testCases mutating: classes using: operato
 		with: self defaultMutationsGenerationStrategy
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MutationTestingAnalysis class >> for: testCases mutating: classes using: operatorCollection loggingIn: aLogger [ 
 	^ self 
 		for: testCases
@@ -52,7 +54,7 @@ MutationTestingAnalysis class >> for: testCases mutating: classes using: operato
 		loggingIn: aLogger
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MutationTestingAnalysis class >> for: testCases mutating: classes using: operatorCollection with: aMutantEvaluationStrategy [
 	
 	^ self 
@@ -63,7 +65,7 @@ MutationTestingAnalysis class >> for: testCases mutating: classes using: operato
 		with: self defaultMutationsGenerationStrategy
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MutationTestingAnalysis class >> for: testCases mutating: classes using: operatorCollection with: aMutantEvaluationStrategy loggingIn: aLogger [
 	
 	^ self 
@@ -75,7 +77,7 @@ MutationTestingAnalysis class >> for: testCases mutating: classes using: operato
 		loggingIn: aLogger
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MutationTestingAnalysis class >> for: testCases mutating: classes using: operatorCollection with: aMutantsEvaluationStrategy with: aMutationsGenerationStrategy [ 
 	^ self 
 		for: testCases
@@ -86,7 +88,7 @@ MutationTestingAnalysis class >> for: testCases mutating: classes using: operato
 		loggingIn: self defaultLogger
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MutationTestingAnalysis class >> for: testCases mutating: classes using: operatorCollection with: aMutantsEvaluationStrategy with: aMutationsGenerationStrategy loggingIn: aLogger [ 
 	^ self new
 		initializeFor: testCases
@@ -98,7 +100,7 @@ MutationTestingAnalysis class >> for: testCases mutating: classes using: operato
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MutationTestingAnalysis class >> testCasesFrom: testClasses [ 
 	^ testClasses
 		inject: OrderedCollection new
@@ -110,7 +112,7 @@ MutationTestingAnalysis class >> testCasesFrom: testClasses [
 			testCases]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MutationTestingAnalysis class >> testCasesFrom: testClasses mutating: classes using: operatorCollection [ 
 	
 	^ self 
@@ -119,7 +121,7 @@ MutationTestingAnalysis class >> testCasesFrom: testClasses mutating: classes us
 		using: operatorCollection.
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MutationTestingAnalysis class >> testCasesFrom: testClasses mutating: classes using: operatorCollection logginIn: aLogger [ 
 	^ self 
 		for: (self testCasesFrom: testClasses)
@@ -128,7 +130,7 @@ MutationTestingAnalysis class >> testCasesFrom: testClasses mutating: classes us
 		loggingIn: aLogger
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MutationTestingAnalysis class >> testCasesFrom: testClasses mutating: classes using: operatorCollection with: anEvaluationStrategy [
 	
 	^ self 
@@ -138,7 +140,7 @@ MutationTestingAnalysis class >> testCasesFrom: testClasses mutating: classes us
 		with: anEvaluationStrategy.
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MutationTestingAnalysis class >> testCasesFrom: testClasses mutating: classes using: operatorCollection with: anEvaluationStrategy loggingIn: aLogger [
 	
 	^ self 
@@ -149,7 +151,7 @@ MutationTestingAnalysis class >> testCasesFrom: testClasses mutating: classes us
 		loggingIn: aLogger.
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MutationTestingAnalysis class >> testCasesFrom: testClasses mutating: classes using: operatorCollection with: anEvaluationStrategy with: aGenerationStrategy [
 	
 	^ self 
@@ -160,7 +162,7 @@ MutationTestingAnalysis class >> testCasesFrom: testClasses mutating: classes us
 		with: aGenerationStrategy.
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MutationTestingAnalysis class >> testCasesFrom: testClasses mutating: classes using: operatorCollection with: anEvaluationStrategy with: aGenerationStrategy loggingIn: aLogger [ 
 	^ self 
 		for: (self testCasesFrom: testClasses)
@@ -171,7 +173,7 @@ MutationTestingAnalysis class >> testCasesFrom: testClasses mutating: classes us
 		loggingIn: aLogger
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MutationTestingAnalysis class >> testCasesReferencesFrom: testClass [ 
 	^ testClass allTestSelectors collect: 
 		[ :each | 
@@ -180,38 +182,44 @@ MutationTestingAnalysis class >> testCasesReferencesFrom: testClass [
 			in: testClass ]
 ]
 
-{ #category : #accesing }
+{ #category : 'accessing' }
+MutationTestingAnalysis >> beStrictMode: aBoolean [
+
+	beStrictMode := aBoolean
+]
+
+{ #category : 'accesing' }
 MutationTestingAnalysis >> coverageAnalysisResult [
 	
 	^coverageAnalysisResult
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MutationTestingAnalysis >> coverageAnalysisResult: anObject [
 
 	coverageAnalysisResult := anObject
 ]
 
-{ #category : #results }
+{ #category : 'results' }
 MutationTestingAnalysis >> generalResult [
 	^ MutationTestingGeneralResult
 		for: particularResults
 		timed: (Duration nanoSeconds: (Duration milliSeconds: elapsedTime) nanoSeconds)
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 MutationTestingAnalysis >> generateCoverageAnalysis [
 	coverageAnalysisResult := (CoverageAnalysis for: self modelClasses running: testCases) run; result
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 MutationTestingAnalysis >> generateMutations [
 	mutations := mutationsGenerationStrategy 
 		mutationsFor: self
 		loggingIn: logger
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 MutationTestingAnalysis >> generateResults [
 	particularResults := OrderedCollection new.
 	mutations
@@ -226,15 +234,38 @@ MutationTestingAnalysis >> generateResults [
 	^ particularResults
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 MutationTestingAnalysis >> initialTestRun [
 
 	"Do an initial run of the tests to check that they are all green.
 	Only green tests count for the mutation testing analysis"
-	testCases do: [ :aTestCase | aTestCase runChecked ]
+[ testCases do: [ :aTestCase | aTestCase runChecked ] ]
+		on: TestsWithErrorsException
+		do: [ :ex |
+			beStrictMode
+				ifTrue: [ ^ ex pass ]
+				ifFalse: [self initialTestRunNonStricMode ].
+			ex return: true ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'running' }
+MutationTestingAnalysis >> initialTestRunNonStricMode [
+	"In case that beStricMode is false, it will filter the passed tests"
+
+	| initialTestCases countFailingTests |
+	initialTestCases := testCases size.
+
+	self testCases: (testCases select: [ :aTestCase |
+			 aTestCase testCase run runCount
+			 = aTestCase testCase run passedCount ]).
+
+	countFailingTests := initialTestCases - testCases size.
+	countFailingTests > 0 ifTrue: [
+		self inform: 'Your have ' , countFailingTests printString ,
+			' test(s) that have Errors or Failures. But in Non-Strict-Mode I will filter them' ]
+]
+
+{ #category : 'initialize-release' }
 MutationTestingAnalysis >> initializeFor: someTestCasesReferences mutating: someModelClasses using: operatorCollection with: aMutantsEvaluationStrategy with: aMutationsGenerationStrategy loggingIn: aLogger [ 
 	modelClasses := someModelClasses.
 	testCases := someTestCasesReferences.
@@ -243,10 +274,11 @@ MutationTestingAnalysis >> initializeFor: someTestCasesReferences mutating: some
 	mutantsEvaluationStrategy := aMutantsEvaluationStrategy.
 	particularResults := OrderedCollection new.
 	elapsedTime := 0.
-	logger := aLogger
+	logger := aLogger.
+	beStrictMode := true .
 ]
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 MutationTestingAnalysis >> modelClasses [
 	"Filter tests and testsResources"
 	^ modelClasses
@@ -254,52 +286,52 @@ MutationTestingAnalysis >> modelClasses [
 				anySatisfy: [:classToFilter | class includesBehavior: classToFilter]]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MutationTestingAnalysis >> mutantsEvaluationStrategy [
 
 	^ mutantsEvaluationStrategy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MutationTestingAnalysis >> mutantsEvaluationStrategy: anObject [
 
 	mutantsEvaluationStrategy := anObject
 ]
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 MutationTestingAnalysis >> mutations [
 	^mutations
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MutationTestingAnalysis >> mutations: anObject [
 
 	mutations := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MutationTestingAnalysis >> mutationsGenerationStrategy [
 
 	^ mutationsGenerationStrategy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MutationTestingAnalysis >> mutationsGenerationStrategy: anObject [
 
 	mutationsGenerationStrategy := anObject
 ]
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 MutationTestingAnalysis >> operators [
 	^operators 
 ]
 
-{ #category : #results }
+{ #category : 'results' }
 MutationTestingAnalysis >> particularResults [
 	^ particularResults
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 MutationTestingAnalysis >> run [
 	"Obtain mutants applying the operators in the classes (or
 	methods of
@@ -318,19 +350,19 @@ MutationTestingAnalysis >> run [
 							ex return: false]
 ]
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 MutationTestingAnalysis >> testBaseClasses [
 
 	^OrderedCollection with: TestCase with: TestResource
 ]
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 MutationTestingAnalysis >> testCases [
 	^testCases
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MutationTestingAnalysis >> testCases: anObject [
 
 	testCases := anObject
